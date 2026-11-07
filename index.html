@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>直交メビウスおみくじキット ― ハートはつながる？</title>
+<meta name="description" content="メビウスの輪を2つ直角にはり合わせて真ん中を切ると、ハートが2つ現れる工作キット。ねじりの組み合わせ（α型・β型）で、ハートが手をつなぐかどうかが決まります。型紙・予想シート・作り方ガイドつき。">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="メビウスおみくじ">
+<meta property="og:title" content="直交メビウスおみくじキット ― ハートはつながる？">
+<meta property="og:description" content="メビウスの輪2つを直角にはり合わせて切ると、ハートが2つ。手をつなぐかどうかは、ねじりの組み合わせで決まります。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon.png">
+<style>
+  :root{
+    --ink:#2f3437; --paper:#fdf7f4; --card:#ffffff; --line:#ecd9d2;
+    --accent:#c94f6d; --accent2:#e07b39; --good:#4a9e57; --blue:#2f6fd0;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",sans-serif;
+    background:var(--paper); color:var(--ink); line-height:1.65;
+    padding:0 12px 48px;
+  }
+  .wrap{ max-width:760px; margin:0 auto; }
+  header{ text-align:center; padding:22px 4px 6px; }
+  header h1{ font-size:1.62rem; margin:0 0 4px; letter-spacing:.03em; }
+  header .sub{ color:#8a6f66; font-size:.95rem; margin:0; }
+  header .mark{ font-size:2rem; }
+  #bootwarn{
+    display:none; background:#fdeeda; border:1.5px solid var(--accent2); border-radius:12px;
+    padding:12px 14px; margin:14px 0; font-size:.92rem;
+  }
+  .tabs{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:18px 0 4px; }
+  .tabs button{
+    padding:11px 6px; font-size:.98rem; font-weight:700; border-radius:14px;
+    border:2px solid var(--line); background:#fff; color:var(--ink); cursor:pointer;
+    font-family:inherit;
+  }
+  .tabs button.on{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .tabs button small{ display:block; font-weight:400; font-size:.76rem; opacity:.85; }
+  section.card{
+    background:var(--card); border:1.5px solid var(--line); border-radius:18px;
+    padding:16px 16px 18px; margin:16px 0;
+    box-shadow:0 2px 8px rgba(120,50,60,.06);
+  }
+  section.card h2{ font-size:1.18rem; margin:2px 0 8px; }
+  section.card h2 .no{
+    display:inline-block; background:var(--accent2); color:#fff; border-radius:50%;
+    width:1.55em; height:1.55em; line-height:1.55em; text-align:center; font-size:.92em; margin-right:.35em;
+  }
+  .note{ color:#8a6f66; font-size:.88rem; }
+  .sheetwrap{ text-align:center; }
+  .sheetwrap canvas{ width:100%; height:auto; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .btns{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
+  button.act{
+    padding:12px 20px; font-size:1.02rem; font-weight:700; border-radius:12px; border:none;
+    background:var(--accent); color:#fff; cursor:pointer; font-family:inherit;
+    box-shadow:0 2px 5px rgba(150,60,80,.3);
+  }
+  button.act.sub{ background:#fff; color:var(--ink); border:2px solid var(--line); box-shadow:none; }
+  .manual h3{ margin:18px 0 6px; font-size:1.05rem; color:#a03a54; }
+  .manual h3:first-child{ margin-top:4px; }
+  .manual ol, .manual ul{ margin:6px 0 6px 1.2em; padding:0; }
+  .manual li{ margin:4px 0; }
+  .fig{ text-align:center; margin:10px 0; }
+  .fig svg{ max-width:100%; height:auto; }
+  .fig .cap{ font-size:.85rem; color:#8a6f66; margin-top:2px; }
+  .warn{
+    background:#fdf6e9; border:1.5px solid #ecd9ae; border-radius:10px;
+    padding:10px 12px; margin:10px 0;
+  }
+  .column{
+    background:#fdf1ec; border:1.5px solid #eec9bd; border-radius:14px; padding:12px 14px; margin-top:14px;
+  }
+  .column h3{ color:#a03a54; margin-top:0; }
+  table.rule{ border-collapse:collapse; margin:10px auto; }
+  table.rule th, table.rule td{ border:1.5px solid var(--line); padding:6px 14px; text-align:center; }
+  table.rule th{ background:#fdf1ec; }
+  .quizbox{ text-align:center; }
+  .quizbox .qfig{ margin:8px 0; }
+  .quizbox .choices{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:10px 0; }
+  .quizbox .choices button{
+    padding:12px 22px; font-size:1.05rem; font-weight:700; border-radius:12px;
+    border:2px solid var(--line); background:#fff; color:var(--ink); cursor:pointer; font-family:inherit;
+  }
+  .quizbox .choices button.sel{ border-color:var(--accent); background:#fdeef1; }
+  .quizbox .feedback{ min-height:2.6em; font-weight:700; margin:6px 0; }
+  .quizbox .score{ color:#8a6f66; font-size:.9rem; }
+  footer{ text-align:center; color:#b09a92; font-size:.82rem; margin-top:26px; }
+  footer a{ color:#a03a54; }
+</style>
+<script>
+  window.__okiBootTimer = setTimeout(function(){
+    var el = document.getElementById('bootwarn');
+    if (el && !window.__okiBooted) el.style.display = 'block';
+  }, 4000);
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">💞</div>
+    <h1>直交メビウスおみくじキット</h1>
+    <p class="sub">メビウスの輪を2つ、直角にはり合わせて真ん中を切ると、ハートが2つ現れます。<br>ハートが手をつなぐかどうかは、切る前に言い当てられます。</p>
+  </header>
+
+  <div id="bootwarn">キットの読み込みに失敗したようです。お手数ですが、ページを再読み込みしてみてください。それでも直らない場合は、ブラウザを変えてお試しください。</div>
+
+  <section class="card">
+    <h2><span class="no">1</span>型紙と予想シートを印刷する</h2>
+    <p class="note">赤い帯・白い帯・予想シートの3種類があります。帯1本は、型紙シート1枚（帯のかけら2つぶん）から作ります。かけら2つを「のりしろB」でまっすぐつなぐと、長さ約52cmの帯になります。</p>
+    <div class="tabs" role="tablist" id="sheettabs"></div>
+    <div class="sheetwrap">
+      <canvas id="sheetcanvas" width="3508" height="2480"></canvas>
+      <div class="btns">
+        <button class="act" id="btn-share" type="button">共有して印刷・保存</button>
+        <button class="act sub" id="btn-download" type="button">画像をダウンロード</button>
+      </div>
+      <p class="note">画像を、A4判・「実際のサイズ（100%）」で印刷してください。型紙の右上の黒い線が実物でちょうど5cmになっていれば正しい大きさです。予想シートはA4判・縦向きです。印刷のしかたは、お使いの機械に合わせて選んでください。</p>
+    </div>
+  </section>
+
+  <section class="card manual">
+    <h2><span class="no">2</span>作り方</h2>
+    <h3>① 帯を2本作る（赤と白）</h3>
+    <ol>
+      <li>型紙を外周の太線で切り取ります（帯のかけらが色ごとに2つ）。</li>
+      <li>かけら1つの「のりしろB」を、もう1つのかけらの「B」の端の裏に貼って、まっすぐつなぎます（ひねりません）。長い帯が1本できました。</li>
+      <li>帯のはしを半回転（180°）ひねって、「のりしろA」を反対のはしの「A」の裏に貼ると、メビウスの輪になります。ひねる向きは、時計回りでも反時計回りでもかまいません（あとで型を読みます）。</li>
+      <li>赤と白、2つの輪を作ります。</li>
+    </ol>
+    <div class="fig">
+      <svg width="520" height="120" viewBox="0 0 520 120" role="img" aria-label="帯をつないで輪にする図">
+        <rect x="10" y="45" width="150" height="34" fill="#fdeeee" stroke="#333" stroke-width="2"/>
+        <rect x="130" y="45" width="30" height="34" fill="#f6ecd4" stroke="#8a5a20" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="85" y="30" font-size="14" text-anchor="middle" fill="#2f3437">かけら①</text>
+        <rect x="185" y="45" width="150" height="34" fill="#fdeeee" stroke="#333" stroke-width="2"/>
+        <text x="260" y="30" font-size="14" text-anchor="middle" fill="#2f3437">かけら②（Bに貼る）</text>
+        <text x="172" y="105" font-size="20" fill="#c94f6d">→</text>
+        <path d="M 360 62 L 430 62" stroke="#c94f6d" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+        <path d="M 430 62 A 40 40 0 1 1 470 40" stroke="#c94f6d" stroke-width="3" fill="none"/>
+        <ellipse cx="472" cy="62" rx="34" ry="40" fill="none" stroke="#c94f6d" stroke-width="4"/>
+        <text x="472" y="118" font-size="13" text-anchor="middle" fill="#2f3437">半回転ひねって輪に</text>
+        <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c94f6d"/></marker></defs>
+      </svg>
+      <div class="cap">かけら2つをまっすぐつないでから、半回転ひねって輪にします</div>
+    </div>
+    <h3>② 輪の「型」を読む（次元下げ）</h3>
+    <p>輪をぺたんと潰して三角形の形にし、上から見て紙の重なりの順番（1層目→2層目→3層目）を追います。順番が<strong>時計回り</strong>なら<strong>α（アルファ）型</strong>、<strong>反時計回り</strong>なら<strong>β（ベータ）型</strong>です。輪の形を少しくずしても、この順番は変わりません（変わらないもの＝不変要素）。</p>
+    <div class="fig">
+      <svg width="480" height="170" viewBox="0 0 480 170" role="img" aria-label="三角形に潰した輪の層の順番の図">
+        <g>
+          <path d="M 120 18 L 205 140 L 35 140 Z" fill="none" stroke="#c94f6d" stroke-width="5"/>
+          <path d="M 120 48 L 178 128 L 62 128 Z" fill="none" stroke="#e79fb2" stroke-width="4"/>
+          <path d="M 120 78 L 152 116 L 88 116 Z" fill="none" stroke="#f3ccd6" stroke-width="3"/>
+          <path d="M 142 52 A 34 34 0 0 1 150 92" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr2)"/>
+          <text x="120" y="165" font-size="14" text-anchor="middle" fill="#2f3437">α型（時計回り）</text>
+        </g>
+        <g>
+          <path d="M 360 18 L 445 140 L 275 140 Z" fill="none" stroke="#2f6fd0" stroke-width="5"/>
+          <path d="M 360 48 L 418 128 L 302 128 Z" fill="none" stroke="#93b8e8" stroke-width="4"/>
+          <path d="M 360 78 L 392 116 L 328 116 Z" fill="none" stroke="#c4d9f5" stroke-width="3"/>
+          <path d="M 338 52 A 34 34 0 0 0 330 92" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr2)"/>
+          <text x="360" y="165" font-size="14" text-anchor="middle" fill="#2f3437">β型（反時計回り）</text>
+        </g>
+        <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2f3437"/></marker></defs>
+      </svg>
+      <div class="cap">立体の輪を平らに潰して考えるのが「次元下げ」。層の順番が型を決めます</div>
+    </div>
+    <h3>③ 2つの輪を直角にはり付ける（ここが要点）</h3>
+    <ol>
+      <li>2つの輪を、上から見て重なるように置き、帯同士が直角に交わる場所（正方形の部分）だけをのりで貼ります。貼るのは交わる場所1か所だけです。</li>
+      <li><strong>重ね方の約束</strong>：下の図のように、2つの輪のふくらみが<strong>同じ回る向き</strong>にそろう置き方にしてください。片方の輪を裏返して置くと重ね方が変わり、結果が逆になってしまいます。</li>
+      <li>貼る場所では、両方の輪の中央線（赤い点線）が、正方形の真ん中で交わるようにそろえます。</li>
+    </ol>
+    <div class="fig">
+      <svg width="500" height="230" viewBox="0 0 500 230" role="img" aria-label="2つの輪の重ね方の図">
+        <g>
+          <circle cx="130" cy="100" r="72" fill="none" stroke="#c94f6d" stroke-width="7"/>
+          <circle cx="196" cy="100" r="72" fill="none" stroke="#7d8a99" stroke-width="7"/>
+          <rect x="152" y="58" width="34" height="34" fill="#ffd98a" stroke="#8a5a20" stroke-width="2"/>
+          <path d="M 130 22 A 78 78 0 0 1 196 34" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr3)"/>
+          <path d="M 196 22 A 78 78 0 0 1 262 34" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr3)"/>
+          <text x="163" y="212" font-size="14" text-anchor="middle" fill="#2f3437">○ この重ね方（同じ回る向き）</text>
+          <text x="169" y="82" font-size="12" text-anchor="middle" fill="#8a5a20">のり</text>
+        </g>
+        <g>
+          <circle cx="352" cy="100" r="72" fill="none" stroke="#c94f6d" stroke-width="7"/>
+          <circle cx="418" cy="100" r="72" fill="none" stroke="#7d8a99" stroke-width="7"/>
+          <rect x="374" y="58" width="34" height="34" fill="#ffd98a" stroke="#8a5a20" stroke-width="2"/>
+          <path d="M 352 22 A 78 78 0 0 1 418 34" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr3)"/>
+          <path d="M 484 166 A 78 78 0 0 1 418 178" stroke="#2f3437" stroke-width="2.5" fill="none" marker-end="url(#arr3)"/>
+          <text x="385" y="212" font-size="14" text-anchor="middle" fill="#2f3437">× 回る向きが互い違い（結果が逆に）</text>
+        </g>
+        <defs><marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2f3437"/></marker></defs>
+      </svg>
+      <div class="cap">上から見た図。黄色い正方形の場所だけを貼ります</div>
+    </div>
+    <h3>④ 予想してから切る</h3>
+    <ol>
+      <li>貼り合わせた輪のまま、それぞれの輪を三角形に潰して型を読み、予想シートに書きます（型を読むのは、貼る前でも貼ったあとでもかまいません）。</li>
+      <li>組み合わせで予想します。<strong>α型とβ型の組み合わせ（αβ型）なら、ハートは手をつなぎます。αα型・ββ型なら、バラバラになります。</strong></li>
+      <li>両方の輪の中央線（赤い点線）に沿って、はさみで切り分けます。貼った正方形の部分も、そのまま切り進んでください。</li>
+      <li>結果を予想シートに記録します。ハートが1つずつ、赤と白のはんぶん同士でできていることにも注目してください。</li>
+    </ol>
+    <div class="warn">はさみを使うときは、まわりの人に気をつけてください。小さいお子さんは、大人の人と一緒に作ってください。</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">3</span>予想クイズ</h2>
+    <p class="note">作る前に、型の読み方と結果の予想を練習できます。</p>
+    <div class="quizbox">
+      <div class="score" id="quiz-score">もんだい 1 / 3</div>
+      <div class="qfig" id="quiz-fig"></div>
+      <p id="quiz-q" style="font-weight:700;"></p>
+      <div class="choices" id="quiz-choices"></div>
+      <div class="feedback" id="quiz-fb"></div>
+      <div class="btns">
+        <button class="act sub" id="quiz-next" type="button" style="display:none;">つぎへ</button>
+        <button class="act sub" id="quiz-retry" type="button" style="display:none;">もう一度</button>
+      </div>
+    </div>
+    <table class="rule" aria-label="型の組み合わせと結果">
+      <tr><th>組み合わせ</th><th>結果</th></tr>
+      <tr><td>α型 × β型</td><td>ハートは手をつなぐ 💞</td></tr>
+      <tr><td>α型 × α型</td><td>バラバラになる</td></tr>
+      <tr><td>β型 × β型</td><td>バラバラになる</td></tr>
+    </table>
+    <p class="note" style="text-align:center;">（重ね方が図の約束どおりの場合）</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="no">4</span>解説 ― なぜ言い当てられるの？</h2>
+    <div class="column" style="margin-top:0;">
+      <h3>ハートは「両方の輪のはんぶん同士」</h3>
+      <p>切り終わったハートを見ると、1つのハートは赤い輪のはんぶんと白い輪のはんぶんでできています。貼り合わせた正方形の場所で、帯の材料の行き先が入れ替わるためです。だから、2色の帯で作ると、ハートは2色になります。</p>
+      <h3>切る前に分かる理由</h3>
+      <p>ハートが手をつなぐかどうかは、「ねじりの組み合わせ」と「重ね方」だけで決まります。輪を三角形に潰して読む層の順番（α型・β型）は、輪の形を少しくずしても変わらない「不変要素」です。変わらないものを見つけて、組み合わせを場合分けすれば、切る前に結果が言い当てられます。</p>
+      <h3>重ね方でも変わります</h3>
+      <p>片方の輪を裏返して重ねると、結果は逆になります（αβ型でもバラバラ、同じ型どうしで手をつなぐ）。これは失敗ではなく、「条件が変われば結果も変わる」という場合分けの大事な実例です。キットの約束は「図の重ね方で、αβ型だけが手をつなぐ」ことです。</p>
+      <h3>もっと知りたい方へ</h3>
+      <p>この仕組みは、位相幾何学（トポロジー）という数学の考え方で確かめられています。同じ材料の物語が、数学の絵本 第20話「ハートはつながる？ ― 直交メビウスのおはなし」にもなっています（<a href="https://jkj7vv2nd7-lang.github.io/math-picture-books/" target="_blank" rel="noopener">数学の絵本 Web版</a>）。メビウスの帯そのものの実験は「メビウスの帯工作キット」もご覧ください。</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>直交メビウスおみくじキット ― 作って、予想して、切って確かめる工作キットです。<br>
+    不具合が出るかもしれません。実際にご使用の際に不具合がありましたら、紹介記事のコメント欄からお知らせください。</p>
+  </footer>
+</div>
+<script>
+/* 直交メビウスおみくじキット 本体
+   仕組みは3次元材料モデルで検証済み（verify-linking5/6.py）：
+   約束の重ね方では αβ型だけが絡み、αα・ββ型は絡まない。
+   各ハートは両方の輪の半分ずつでできている。 */
+'use strict';
+const $ = id => document.getElementById(id);
+const state = { sheet: 'red' };
+
+/* ---------- 型紙描画（A4・300dpi） ---------- */
+const SHEET_W = 3508, SHEET_H = 2480;      // 横向き
+const FC_W = 2480, FC_H = 3508;            // 予想シート（縦向き）
+const SEG_LEN = 3307, BODY_LEN = 3071, TAB_LEN = 236, STRIP_W = 472; // 280mm=本体260+のりしろ20, 幅40mm
+const MM = 300 / 25.4;
+
+function drawCal(ctx, x, y) {
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 10;
+  ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 591, y); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x, y - 26); ctx.lineTo(x, y + 26);
+  ctx.moveTo(x + 591, y - 26); ctx.lineTo(x + 591, y + 26);
+  ctx.stroke();
+  ctx.fillStyle = '#000'; ctx.font = 'bold 54px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('5cm', x + 295, y - 42);
+  ctx.textAlign = 'left';
+}
+
+function drawSegment(ctx, x, y, color, piece) {
+  const isRed = color === 'red';
+  const main = isRed ? '#c94f6d' : '#5b7a99';
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(x, y, SEG_LEN, STRIP_W);
+  ctx.fillStyle = isRed ? 'rgba(201,79,109,0.07)' : 'rgba(47,111,208,0.05)';
+  ctx.fillRect(x, y, SEG_LEN, STRIP_W);
+  const cy = y + STRIP_W / 2;
+  // 中央の点線（切り取り線）※のりしろの上も通す
+  ctx.strokeStyle = '#d64541'; ctx.lineWidth = 8; ctx.setLineDash([34, 24]);
+  ctx.beginPath(); ctx.moveTo(x + 8, cy); ctx.lineTo(x + SEG_LEN - 8, cy); ctx.stroke();
+  ctx.setLineDash([]);
+  // 歩く矢印（シェブロン）＋上の点（表裏・向きの目印）
+  ctx.strokeStyle = main; ctx.lineWidth = 13; ctx.lineCap = 'round';
+  for (let ax = x + 330; ax < x + BODY_LEN - 120; ax += 300) {
+    ctx.beginPath();
+    ctx.moveTo(ax - 26, cy - 30); ctx.lineTo(ax + 26, cy); ctx.lineTo(ax - 26, cy + 30);
+    ctx.stroke();
+    ctx.beginPath(); ctx.fillStyle = '#e07b39';
+    ctx.arc(ax, cy - 68, 15, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.lineCap = 'butt';
+  // 非対称の★印（ひねりの向きを見分ける目印）：左端は上、のりしろは下
+  ctx.fillStyle = main; ctx.font = 'bold 84px sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('★', x + 560, y + 66);
+  const tx0 = x + BODY_LEN;
+  ctx.fillText('★', tx0 + TAB_LEN / 2, y + STRIP_W - 62);
+  // 左端の目印（①=A / ②=B）
+  const endMark = piece === 1 ? 'A' : 'B';
+  ctx.strokeStyle = '#8a5a20'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.arc(x + 92, cy, 62, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#8a5a20'; ctx.font = 'bold 92px sans-serif';
+  ctx.fillText(endMark, x + 92, cy + 4);
+  // のりしろ（右端）※ハッチはタブの内側だけ
+  ctx.save();
+  ctx.beginPath(); ctx.rect(tx0, y + 3, TAB_LEN - 3, STRIP_W - 6); ctx.clip();
+  ctx.fillStyle = '#f6ecd4'; ctx.fillRect(tx0, y + 3, TAB_LEN - 3, STRIP_W - 6);
+  ctx.strokeStyle = 'rgba(160,120,60,.5)'; ctx.lineWidth = 3;
+  for (let hx = tx0 - STRIP_W; hx < x + SEG_LEN; hx += 44) {
+    ctx.beginPath(); ctx.moveTo(hx, y + STRIP_W - 4); ctx.lineTo(hx + STRIP_W, y + 4); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.strokeStyle = '#8a5a20'; ctx.lineWidth = 4; ctx.setLineDash([16, 12]);
+  ctx.beginPath(); ctx.moveTo(tx0, y + 4); ctx.lineTo(tx0, y + STRIP_W - 4); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#8a5a20'; ctx.font = 'bold 58px sans-serif';
+  const tabMark = piece === 1 ? 'B' : 'A';
+  ctx.fillText(tabMark, tx0 + TAB_LEN / 2, cy - 108);
+  ctx.font = 'bold 40px sans-serif';
+  ctx.fillText(piece === 1 ? 'つなぐ' : 'わにする', tx0 + TAB_LEN / 2, cy + 62);
+  ctx.fillText('のりしろ', tx0 + TAB_LEN / 2, cy + 112);
+  // 外枠（切り取り線）
+  ctx.strokeStyle = '#333'; ctx.lineWidth = 7;
+  ctx.strokeRect(x, y, SEG_LEN, STRIP_W);
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+}
+
+function drawMemoBox(ctx, x, y, w, h, label) {
+  ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = '#d9b8ae'; ctx.lineWidth = 3.5; ctx.strokeRect(x, y, w, h);
+  ctx.fillStyle = '#8a6f66'; ctx.font = 'bold 40px sans-serif';
+  ctx.fillText(label, x + 22, y + 54);
+  ctx.strokeStyle = 'rgba(180,140,130,.4)'; ctx.lineWidth = 2.5;
+  for (let ly = y + 108; ly < y + h - 24; ly += 58) {
+    ctx.beginPath(); ctx.moveTo(x + 22, ly); ctx.lineTo(x + w - 22, ly); ctx.stroke();
+  }
+}
+
+function buildStripSheet(color) {
+  const cv = $('sheetcanvas');
+  cv.width = SHEET_W; cv.height = SHEET_H;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, SHEET_W, SHEET_H);
+  const isRed = color === 'red';
+  const name = isRed ? '赤い帯' : '白い帯';
+  ctx.fillStyle = '#2f3437'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  ctx.font = 'bold 84px sans-serif';
+  ctx.fillText('直交メビウスおみくじキット ― ' + name + 'の型紙', 120, 168);
+  ctx.font = '50px sans-serif'; ctx.fillStyle = '#8a6f66';
+  ctx.fillText('かけら①と②を「のりしろB」でまっすぐつなぎ（ひねらない）、半回転ひねって「のりしろA」を A の裏に貼ると輪になります', 120, 252);
+  drawCal(ctx, SHEET_W - 120 - 591, 128);
+  const sx = Math.round((SHEET_W - SEG_LEN) / 2);
+  [1, 2].forEach((piece, i) => {
+    const sy = 430 + i * 640;
+    ctx.fillStyle = '#2f3437'; ctx.font = 'bold 52px sans-serif';
+    ctx.fillText(name + ' ― かけら' + (piece === 1 ? '①' : '②'), sx, sy - 28);
+    ctx.fillStyle = isRed ? '#c94f6d' : '#5b7a99'; ctx.textAlign = 'right';
+    ctx.font = 'bold 46px sans-serif';
+    ctx.fillText(piece === 1 ? '左はし＝A ／ のりしろ＝B（つなぐ）' : '左はし＝B ／ のりしろ＝A（わにする）', sx + SEG_LEN, sy - 28);
+    ctx.textAlign = 'left';
+    drawSegment(ctx, sx, sy, color, piece);
+  });
+  const my = 430 + 2 * 640 + 30;
+  drawMemoBox(ctx, sx, my, SEG_LEN, 400, 'メモ（作った日・輪の型・結果など）');
+  ctx.fillStyle = '#b09a92'; ctx.font = '44px sans-serif';
+  ctx.fillText('中央の赤い点線は、輪にしてから切るための線です。のりしろの上にも続けて引いてあります。', 120, SHEET_H - 70);
+  return cv;
+}
+
+/* ---------- 予想シート ---------- */
+function drawFlatRing(ctx, cx, cy, s, cw, color) {
+  ctx.strokeStyle = color; ctx.lineWidth = 10;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - s); ctx.lineTo(cx + s * 0.9, cy + s * 0.65); ctx.lineTo(cx - s * 0.9, cy + s * 0.65);
+  ctx.closePath(); ctx.stroke();
+  ctx.lineWidth = 7; ctx.globalAlpha = 0.55;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - s * 0.55); ctx.lineTo(cx + s * 0.55, cy + s * 0.5); ctx.lineTo(cx - s * 0.55, cy + s * 0.5);
+  ctx.closePath(); ctx.stroke();
+  ctx.globalAlpha = 0.3;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - s * 0.15); ctx.lineTo(cx + s * 0.22, cy + s * 0.36); ctx.lineTo(cx - s * 0.22, cy + s * 0.36);
+  ctx.closePath(); ctx.stroke();
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = '#2f3437'; ctx.lineWidth = 6;
+  ctx.beginPath();
+  if (cw) ctx.arc(cx, cy, s * 0.42, -0.4, 1.6); else ctx.arc(cx, cy, s * 0.42, Math.PI + 0.4, Math.PI - 1.6, true);
+  ctx.stroke();
+  const ea = cw ? 1.6 : Math.PI - 1.6;
+  const ex = cx + s * 0.42 * Math.cos(ea), ey = cy + s * 0.42 * Math.sin(ea);
+  ctx.fillStyle = '#2f3437';
+  ctx.beginPath();
+  ctx.moveTo(ex, ey); ctx.lineTo(ex - 26, ey - 6); ctx.lineTo(ex - 8, ey + 24); ctx.closePath(); ctx.fill();
+  ctx.font = 'bold 52px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('1', cx + s * 0.62, cy - s * 0.28);
+  ctx.fillText('2', cx + s * 0.78, cy + s * 0.42);
+  ctx.fillText('3', cx - s * 0.3, cy + s * 0.62);
+}
+
+function ruledBox(ctx, x, y, w, h, label) {
+  ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h);
+  ctx.strokeStyle = '#cbb3ab'; ctx.lineWidth = 3.5; ctx.strokeRect(x, y, w, h);
+  if (label) {
+    ctx.fillStyle = '#8a6f66'; ctx.font = 'bold 42px sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText(label, x + 22, y + 56);
+  }
+  ctx.strokeStyle = 'rgba(180,140,130,.35)'; ctx.lineWidth = 2.5;
+  for (let ly = y + (label ? 112 : 62); ly < y + h - 20; ly += 62) {
+    ctx.beginPath(); ctx.moveTo(x + 22, ly); ctx.lineTo(x + w - 22, ly); ctx.stroke();
+  }
+}
+
+function buildForecastSheet() {
+  const cv = $('sheetcanvas');
+  cv.width = FC_W; cv.height = FC_H;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, FC_W, FC_H);
+  ctx.fillStyle = '#2f3437'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+  ctx.font = 'bold 80px sans-serif';
+  ctx.fillText('直交メビウスおみくじ ― 予想シート', 110, 160);
+  drawCal(ctx, FC_W - 110 - 591, 120);
+  ctx.font = '52px sans-serif'; ctx.fillStyle = '#2f3437';
+  ctx.fillText('なまえ：', 110, 300);
+  ctx.strokeStyle = '#999'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(360, 306); ctx.lineTo(1500, 306); ctx.stroke();
+  ctx.font = 'bold 58px sans-serif'; ctx.fillStyle = '#a03a54';
+  ctx.fillText('1. 型の読み方（次元下げ）', 110, 440);
+  ctx.font = '48px sans-serif'; ctx.fillStyle = '#2f3437';
+  ctx.fillText('輪を三角形に潰して、紙の層の順番（1→2→3）を追います。', 110, 516);
+  ctx.fillText('時計回りなら α（アルファ）型、反時計回りなら β（ベータ）型です。', 110, 582);
+  drawFlatRing(ctx, 620, 830, 170, true, '#c94f6d');
+  drawFlatRing(ctx, 1560, 830, 170, false, '#2f6fd0');
+  ctx.font = 'bold 52px sans-serif'; ctx.fillStyle = '#2f3437'; ctx.textAlign = 'center';
+  ctx.fillText('α型（時計回り）', 620, 1120);
+  ctx.fillText('β型（反時計回り）', 1560, 1120);
+  ctx.textAlign = 'left';
+  ctx.font = 'bold 58px sans-serif'; ctx.fillStyle = '#a03a54';
+  ctx.fillText('2. 型を調べよう', 110, 1290);
+  ctx.font = '52px sans-serif'; ctx.fillStyle = '#2f3437';
+  ctx.fillText('赤い輪の型：　α　・　β　　（あてはまる方を ○ でかこむ）', 110, 1380);
+  ctx.fillText('白い輪の型：　α　・　β', 110, 1466);
+  ctx.fillText('組み合わせ：　αα　・　αβ　・　ββ', 110, 1552);
+  ctx.font = 'bold 58px sans-serif'; ctx.fillStyle = '#a03a54';
+  ctx.fillText('3. 予想と結果', 110, 1700);
+  ctx.font = '52px sans-serif'; ctx.fillStyle = '#2f3437';
+  ctx.fillText('予想：ハートは（ 手をつなぐ ・ バラバラになる ）', 110, 1790);
+  ctx.fillText('結果：ハートは（ 手をつないだ ・ バラバラになった ）', 110, 1876);
+  ruledBox(ctx, 110, 1940, FC_W - 220, 300, '気づいたこと（ハートの色のぐあいなど）');
+  ctx.font = 'bold 58px sans-serif'; ctx.fillStyle = '#a03a54';
+  ctx.fillText('4. 3タイプの記録', 110, 2400);
+  const cols = [110, 420, 900, 1380];
+  const colW = [310, 480, 480, FC_W - 110 - 1380];
+  const heads = ['組み合わせ', '予想', '結果', '気づいたこと'];
+  ctx.font = 'bold 46px sans-serif';
+  heads.forEach((h, i) => {
+    ctx.fillStyle = '#fdf1ec'; ctx.fillRect(cols[i], 2450, colW[i], 96);
+    ctx.strokeStyle = '#cbb3ab'; ctx.lineWidth = 3; ctx.strokeRect(cols[i], 2450, colW[i], 96);
+    ctx.fillStyle = '#2f3437'; ctx.textAlign = 'center';
+    ctx.fillText(h, cols[i] + colW[i] / 2, 2514);
+  });
+  ctx.textAlign = 'left';
+  ['αα', 'αβ', 'ββ'].forEach((t, r) => {
+    const y = 2546 + r * 250;
+    ctx.fillStyle = '#fff'; ctx.fillRect(cols[0], y, colW[0], 250);
+    ctx.strokeStyle = '#cbb3ab'; ctx.strokeRect(cols[0], y, colW[0], 250);
+    ctx.fillStyle = '#2f3437'; ctx.font = 'bold 64px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(t, cols[0] + colW[0] / 2, y + 150);
+    ctx.textAlign = 'left';
+    [1, 2, 3].forEach(i => ruledBox(ctx, cols[i], y, colW[i], 250, ''));
+  });
+  ctx.fillStyle = '#b09a92'; ctx.font = '44px sans-serif';
+  ctx.fillText('重ね方はキットの図の約束どおりに。結果は「αβ型だけ手をつなぐ」が目安です。', 110, FC_H - 80);
+  return cv;
+}
+
+/* ---------- シート切替・出力 ---------- */
+const SHEETS = [
+  { id: 'red', label: '赤い帯の型紙', sub: 'A4・横', build: () => buildStripSheet('red'), file: 'mobius-omikuji-aka-A4.png' },
+  { id: 'white', label: '白い帯の型紙', sub: 'A4・横', build: () => buildStripSheet('white'), file: 'mobius-omikuji-shiro-A4.png' },
+  { id: 'forecast', label: '予想シート', sub: 'A4・縦', build: buildForecastSheet, file: 'mobius-omikuji-yosou-A4.png' }
+];
+function curSheet() { return SHEETS.find(s => s.id === state.sheet); }
+function buildTabs() {
+  const box = $('sheettabs');
+  box.innerHTML = '';
+  SHEETS.forEach(s => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = s.label + '<small>' + s.sub + '</small>';
+    if (s.id === state.sheet) b.className = 'on';
+    b.addEventListener('click', () => { state.sheet = s.id; buildTabs(); curSheet().build(); });
+    box.appendChild(b);
+  });
+}
+function sheetBlob(cb) { curSheet().build().toBlob(cb, 'image/png'); }
+function initOutput() {
+  $('btn-download').addEventListener('click', () => {
+    sheetBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = curSheet().file;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    });
+  });
+  $('btn-share').addEventListener('click', () => {
+    sheetBlob(async blob => {
+      const file = new File([blob], curSheet().file, { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file] }); } catch (e) { /* キャンセル時は何もしない */ }
+      } else {
+        alert('この機械では共有が使えないため、「画像をダウンロード」から保存して印刷してください。');
+      }
+    });
+  });
+}
+
+/* ---------- 予想クイズ ---------- */
+let AC = null;
+function beep(freq, t0, dur, type, gain) {
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    const o = AC.createOscillator(), g = AC.createGain();
+    o.type = type || 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(gain || 0.12, AC.currentTime + t0);
+    g.gain.exponentialRampToValueAtTime(0.001, AC.currentTime + t0 + dur);
+    o.connect(g); g.connect(AC.destination);
+    o.start(AC.currentTime + t0); o.stop(AC.currentTime + t0 + dur);
+  } catch (e) { /* 音が出ない環境では無視 */ }
+}
+function sndGood() { beep(880, 0, 0.15); beep(1318, 0.12, 0.25); }
+function sndBad() { beep(160, 0, 0.25, 'square', 0.06); }
+
+function triSVG(cw, color) {
+  const arrow = cw
+    ? '<path d="M 118 44 A 34 34 0 0 1 128 84" stroke="#2f3437" stroke-width="3" fill="none" marker-end="url(#qa)"/>'
+    : '<path d="M 82 44 A 34 34 0 0 0 72 84" stroke="#2f3437" stroke-width="3" fill="none" marker-end="url(#qa)"/>';
+  return '<svg width="200" height="180" viewBox="0 0 200 180">'
+    + '<path d="M 100 12 L 178 148 L 22 148 Z" fill="none" stroke="' + color + '" stroke-width="6"/>'
+    + '<path d="M 100 48 L 152 132 L 48 132 Z" fill="none" stroke="' + color + '" stroke-width="4" opacity="0.55"/>'
+    + '<path d="M 100 84 L 126 116 L 74 116 Z" fill="none" stroke="' + color + '" stroke-width="3" opacity="0.3"/>'
+    + arrow
+    + '<text x="140" y="66" font-size="17" font-weight="bold">1</text>'
+    + '<text x="152" y="112" font-size="17" font-weight="bold">2</text>'
+    + '<text x="66" y="140" font-size="17" font-weight="bold">3</text>'
+    + '<defs><marker id="qa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2f3437"/></marker></defs></svg>';
+}
+const QUESTIONS = [
+  { fig: () => triSVG(true, '#c94f6d'), q: 'この輪の型はどちらですか。', choices: ['α型', 'β型'], ans: 0, why: '層の順番が時計回りなので α型 です。' },
+  { fig: () => triSVG(false, '#2f6fd0'), q: 'この輪の型はどちらですか。', choices: ['α型', 'β型'], ans: 1, why: '層の順番が反時計回りなので β型 です。' },
+  { fig: () => '', q: '赤い輪が α型、白い輪が β型（αβ型）。図の約束どおりに重ねて切ると、ハートはどうなりますか。', choices: ['手をつなぐ', 'バラバラになる'], ans: 0, why: 'αβ型のときだけ、ハートは手をつなぎます。' },
+  { fig: () => '', q: '両方の輪が β型（ββ型）では、ハートはどうなりますか。', choices: ['手をつなぐ', 'バラバラになる'], ans: 1, why: '同じ型どうし（αα型・ββ型）は、バラバラになります。' }
+];
+const quiz = { i: 0, score: 0, locked: false };
+function showQuestion() {
+  const item = QUESTIONS[quiz.i];
+  quiz.locked = false;
+  $('quiz-score').textContent = 'もんだい ' + (quiz.i + 1) + ' / ' + QUESTIONS.length + '（せいかい ' + quiz.score + '）';
+  $('quiz-fig').innerHTML = item.fig();
+  $('quiz-q').textContent = item.q;
+  $('quiz-fb').textContent = '';
+  $('quiz-next').style.display = 'none';
+  const box = $('quiz-choices');
+  box.innerHTML = '';
+  item.choices.forEach((c, idx) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = c;
+    b.addEventListener('click', () => answer(idx, b));
+    box.appendChild(b);
+  });
+}
+function answer(idx, btn) {
+  if (quiz.locked) return;
+  quiz.locked = true;
+  const item = QUESTIONS[quiz.i];
+  const ok = idx === item.ans;
+  if (ok) { quiz.score++; sndGood(); } else { sndBad(); }
+  $('quiz-fb').textContent = (ok ? '⭕ せいかい！ ' : '❌ ざんねん。 ') + item.why;
+  $('quiz-fb').style.color = ok ? '#4a9e57' : '#c94f6d';
+  $('quiz-score').textContent = 'もんだい ' + (quiz.i + 1) + ' / ' + QUESTIONS.length + '（せいかい ' + quiz.score + '）';
+  const last = quiz.i === QUESTIONS.length - 1;
+  const nx = $('quiz-next');
+  nx.textContent = last ? 'けっかを見る' : 'つぎへ';
+  nx.style.display = '';
+}
+function initQuiz() {
+  $('quiz-next').addEventListener('click', () => {
+    if (quiz.i < QUESTIONS.length - 1) { quiz.i++; showQuestion(); }
+    else {
+      $('quiz-fig').innerHTML = '';
+      $('quiz-q').textContent = 'おつかれさまでした。' + QUESTIONS.length + '問中 ' + quiz.score + ' 問せいかいです。';
+      $('quiz-fb').textContent = quiz.score === QUESTIONS.length
+        ? '💞 かんぺきです！ あとは実物で確かめてみましょう。'
+        : '型の読み方と「αβ型だけ手をつなぐ」を思い出して、もう一度どうぞ。';
+      $('quiz-fb').style.color = '#a03a54';
+      $('quiz-choices').innerHTML = '';
+      $('quiz-next').style.display = 'none';
+      $('quiz-retry').style.display = '';
+      if (quiz.score === QUESTIONS.length) sndGood();
+    }
+  });
+  $('quiz-retry').addEventListener('click', () => {
+    quiz.i = 0; quiz.score = 0;
+    $('quiz-retry').style.display = 'none';
+    showQuestion();
+  });
+  showQuestion();
+}
+
+function init() {
+  buildTabs();
+  curSheet().build();
+  initOutput();
+  initQuiz();
+  window.__okiBooted = true;
+}
+document.addEventListener('DOMContentLoaded', init);
+
+</script>
+</body>
+</html>
